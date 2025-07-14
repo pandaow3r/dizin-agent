@@ -18,13 +18,5 @@ export const createMastra = async () => {
       name: 'Mastra',
       level: 'info',
     }),
-    server: {
-      cors: {
-        origin: ["*"],
-        allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        allowHeaders: ["Content-Type", "Authorization"],
-        credentials: false,
-      },
-    },
   });
 };
