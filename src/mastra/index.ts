@@ -15,5 +15,12 @@ export const mastra = new Mastra({
     name: 'Mastra',
     level: 'info',
   }),
-  // CORS veya başka bir server ayarı eklemene gerek yok!
+  server: {
+    cors: {
+      origin: ["*"],
+      allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      allowHeaders: ["Content-Type", "Authorization"],
+      credentials: false,
+    },
+  },
 });
