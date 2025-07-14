@@ -3,20 +3,17 @@ import { Mastra } from '@mastra/core/mastra';
 import { PinoLogger } from '@mastra/loggers';
 import { LibSQLStore } from '@mastra/libsql';
 import { weatherWorkflow } from './workflows/weather-workflow';
-import { getMyAgent } from './agents/dizinAgent';
+import { myAgent } from './agents/dizinAgent';
 
-
-export const createMastra = async () => {
-  const myAgent = await getMyAgent();
-  return new Mastra({
-    workflows: { weatherWorkflow },
-    agents: { myAgent },
-    storage: new LibSQLStore({
-      url: ":memory:",
-    }),
-    logger: new PinoLogger({
-      name: 'Mastra',
-      level: 'info',
-    }),
-  });
-};
+export const mastra = new Mastra({
+  workflows: { weatherWorkflow },
+  agents: { myAgent },
+  storage: new LibSQLStore({
+    url: ":memory:",
+  }),
+  logger: new PinoLogger({
+    name: 'Mastra',
+    level: 'info',
+  }),
+  // CORS veya başka bir server ayarı eklemene gerek yok!
+});
