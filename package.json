@@ -23,6 +23,8 @@
     "@mastra/loggers": "^0.10.3",
     "@mastra/memory": "^0.11.2",
     "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "node-fetch": "^3.3.2",
     "zod": "^3.25.76"
   },
   "devDependencies": {
