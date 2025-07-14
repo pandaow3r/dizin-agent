@@ -24,15 +24,13 @@ const mcps = new MCPClient({
   },
 });
 
-export const getMyAgent = async () => {
-  return new Agent({
-    name: 'TR Dizin Agent',
-    instructions: `
-    Sen Kullanıcının istediği makaleleri getiren bir agentsın.
+export const myAgent = new Agent({
+  name: 'TR Dizin Agent',
+  instructions: `
+  Sen Kullanıcının istediği makaleleri getiren bir agentsın.
 
-    Kullanıcının istediği makaleyi getirirken, makaleye ait detayları da getir.
-    `,
-    model: openai('gpt-4o'),
-    tools: await mcps.getTools(),
-  });
-};
+  Kullanıcının istediği makaleyi getirirken, makaleye ait detayları da getir.
+`,
+  model: openai('gpt-4o'),
+  tools: await mcps.getTools(),
+});
