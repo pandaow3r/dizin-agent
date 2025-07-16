@@ -19,7 +19,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// DÜZELTİLMİŞ ROUTE:
+// Tüm /api altı istekleri proxy'le
 app.use('/api', async (req, res) => {
   try {
     const targetUrl = MASRTA_CLOUD_BASE + req.originalUrl;
@@ -32,25 +32,21 @@ app.use('/api', async (req, res) => {
       headers,
       body: ['GET', 'HEAD'].includes(req.method) ? undefined : JSON.stringify(req.body),
     };
+
     const response = await fetch(targetUrl, options);
-    res.status(response.status);
-    response.headers.forEach((value, key) => {
-      if (['content-type', 'content-length'].includes(key)) {
-        res.setHeader(key, value);
-      }
-    });
     const data = await response.text();
+
+    // Orijinal response header'larını ilet
+    response.headers.forEach((value, key) => {
+      res.setHeader(key, value);
+    });
+    res.status(response.status);
     res.send(data);
   } catch (err) {
-    res.status(502).json({ error: 'Proxy error', details: err.message });
+    res.status(500).json({ error: 'Proxy error', details: err.message });
   }
 });
 
-app.get('/', (req, res) => {
-  res.send('Mastra CORS Proxy çalışıyor. /api/* endpointine istek atabilirsiniz.');
-});
-
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`CORS proxy listening on http://localhost:${PORT}`);
+app.listen(3001, () => {
+  console.log('CORS proxy listening on http://localhost:3001');
 }); 
